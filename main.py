@@ -3,24 +3,27 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+from sinusoidal import Sinusoidal
+
 amplitude = 1
-frequency = 0.5
-period = math.pi/2
+frequency = 3
+period = math.pi/3
 
-x = [period, 2*period, 3*period, 4*period, 5*period, 6*period, 7*period]
-y = []
+def add(arr1, arr2):
+    arr3 = []
+    for i in range(len(arr1)):
+        arr3.append(arr1[i] + arr2[i])
+    return arr3
 
-for i in x:
-    y.append(amplitude * math.sin(frequency * i))
+x = np.arange(0, 4*math.pi, math.pi/80)
+y = np.sin((frequency * x))
 
-# for i in x:
-#     y_.append(amplitude * math.sin(2 * i))
+wave1 = Sinusoidal(amplitude, frequency, period)
 
-x1 = np.arange(0, 4*math.pi, math.pi/20)
-y1 = amplitude * np.sin(frequency * x1)
-y2 = amplitude * np.sin(2 * x1)
+count = 12
+wave1.generate_inputs(count)
 
-plt.plot(x, y, marker="o", linestyle="None")
-plt.plot(x1, y1 + y2)
-
+plt.grid(color='black', linestyle='-', linewidth=0.5)
+plt.plot(wave1.get_inputs_avg(), wave1.get_outputs_avg(), marker="o", color='blue', linestyle="none")
+plt.plot(x, y, color='green')
 plt.show()
